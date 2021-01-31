@@ -3,8 +3,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -12,6 +10,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { register } from '../../redux/auth/auth-operations';
 
 function Copyright() {
   return (
@@ -49,6 +50,39 @@ const useStyles = makeStyles(theme => ({
 export default function SignUp() {
   const classes = useStyles();
 
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+
+  const handleChange = e => {
+    const { name, value } = e.currentTarget;
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+
+      case 'email':
+        setEmail(value);
+        break;
+
+      case 'password':
+        setPassword(value);
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    dispatch(register({ name, email, password }));
+    setName('');
+    setEmail('');
+    setPassword('');
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -59,31 +93,23 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 autoComplete="fname"
-                name="firstName"
+                name="name"
+                value={name}
                 variant="outlined"
                 required
                 fullWidth
                 id="firstName"
-                label="First Name"
+                label="Name"
                 autoFocus
+                onChange={handleChange}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-              />
-            </Grid>
+
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -92,7 +118,9 @@ export default function SignUp() {
                 id="email"
                 label="Email Address"
                 name="email"
+                value={email}
                 autoComplete="email"
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -101,16 +129,12 @@ export default function SignUp() {
                 required
                 fullWidth
                 name="password"
+                value={password}
                 label="Password"
                 type="password"
                 id="password"
                 autoComplete="current-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
+                onChange={handleChange}
               />
             </Grid>
           </Grid>

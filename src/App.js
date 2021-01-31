@@ -1,12 +1,22 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import SignIn from './SignIn/SignIn';
-import SignUp from './SignUp/SignUp';
-import AppForNav from './AppForNav/AppForNav';
+import SignIn from './components/SignIn/SignIn';
+import SignUp from './components/SignUp/SignUp';
+import AppForNav from './components/AppForNav/AppForNav';
 import { Container } from '@material-ui/core';
-import NotFoundView from './NotFoundView/NotFoundView';
+import UserContacts from './components/UserContacts/UserContacts';
+import { fetchCurrentUser } from './redux/auth/auth-operations';
+// import NotFoundView from './NotFoundView/NotFoundView';
 
 export default function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+  }, [dispatch]);
+
   return (
     <Container>
       <AppForNav />
@@ -23,6 +33,9 @@ export default function App() {
         {/* <Route>
           <NotFoundView />
         </Route> */}
+        <Route exact path="/contacts">
+          <UserContacts />
+        </Route>
       </Switch>
     </Container>
   );
