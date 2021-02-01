@@ -1,42 +1,79 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
+import { Container } from '@material-ui/core';
+import { fetchCurrentUser } from './redux/auth/auth-operations';
+import { getIsFetchingCurrent } from './redux/auth/auth-selectors';
+import AppForNav from './components/AppForNav/AppForNav';
+import PrivateRaute from './components/PrivateRaute/PrivateRaute';
+import PublicRoute from './components/PublicRoute/PublicRoute';
+import Loader from './components/Loader/Loader';
+
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
-import AppForNav from './components/AppForNav/AppForNav';
-import { Container } from '@material-ui/core';
+
 import UserContacts from './components/UserContacts/UserContacts';
-import { fetchCurrentUser } from './redux/auth/auth-operations';
-// import NotFoundView from './NotFoundView/NotFoundView';
+import NotFoundView from './components/NotFoundView/NotFoundView';
+// import MyBlog from './components/MyBlog/MyBlog';
+
+const MyBlog = lazy(() =>
+  import('./components/MyBlog/MyBlog' /*webpackChunkName: MyBlog */),
+);
+
+// const SignUp = lazy(() =>
+//   import('./components/SignUp/SignUp' /*webpackChunkName: SignUp */),
+// );
+// const SignIn = lazy(() =>
+//   import('./components/SignIn/SignIn' /*webpackChunkName: SignIn */),
+// );
+// const UserContacts = lazy(() =>
+//   import(
+//     './components/UserContacts/UserContacts' /*webpackChunkName: UserContacts */
+//   ),
+// );
+// const NotFoundView = lazy(() =>
+//   import(
+//     './components/NotFoundView/NotFoundView' /*webpackChunkName: NotFoundView */
+//   ),
+// );
 
 export default function App() {
   const dispatch = useDispatch();
+  const isFetchingCurrentUser = useSelector(getIsFetchingCurrent);
 
   useEffect(() => {
     dispatch(fetchCurrentUser());
   }, [dispatch]);
 
-  return (
+  return isFetchingCurrentUser ? (
+    <Loader />
+  ) : (
     <Container>
       <AppForNav />
+      <Suspense fallback={<h1>...Loading</h1>}>
+        <Switch>
+          <PublicRoute exact path="/">
+            <MyBlog />
+          </PublicRoute>
 
-      <Switch>
-        <Route exact path="/login">
-          <SignIn />
-        </Route>
+          <PublicRoute exact path="/register" restricted>
+            <SignUp />
+          </PublicRoute>
 
-        <Route exact path="/register">
-          <SignUp />
-        </Route>
+          <PublicRoute exact path="/login" restricted redirectTo="/contacts">
+            <SignIn />
+          </PublicRoute>
 
-        {/* <Route>
-          <NotFoundView />
-        </Route> */}
-        <Route exact path="/contacts">
-          <UserContacts />
-        </Route>
-      </Switch>
+          <PrivateRaute exact path="/contacts" redirectTo="/login">
+            <UserContacts />
+          </PrivateRaute>
+
+          <Route>
+            <NotFoundView />
+          </Route>
+        </Switch>
+      </Suspense>
     </Container>
   );
 }

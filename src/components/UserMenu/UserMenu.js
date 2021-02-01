@@ -25,14 +25,13 @@ export default function LetterAvatars() {
   return (
     <div className={classes.root}>
       <Avatar>{nameInAvatar}</Avatar>
-      <Box mr={3}>
+      <Box mr={90}>
         <Button color="inherit" variant="outlined">
           <NavLink exact to="/contacts" className={s.link}>
             My contacts
           </NavLink>
         </Button>
       </Box>
-
       <Box>
         <Button
           color="secondary"
