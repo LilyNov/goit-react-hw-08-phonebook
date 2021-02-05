@@ -10,13 +10,6 @@ import PrivateRaute from './components/PrivateRaute/PrivateRaute';
 import PublicRoute from './components/PublicRoute/PublicRoute';
 import Loader from './components/Loader/Loader';
 
-// import SignIn from './components/SignIn/SignIn';
-// import SignUp from './components/SignUp/SignUp';
-
-// import UserContacts from './components/UserContacts/UserContacts';
-// import NotFoundView from './components/NotFoundView/NotFoundView';
-// import MyBlog from './components/MyBlog/MyBlog';
-
 const MyBlog = lazy(() =>
   import('./components/MyBlog/MyBlog' /*webpackChunkName: MyBlog */),
 );
