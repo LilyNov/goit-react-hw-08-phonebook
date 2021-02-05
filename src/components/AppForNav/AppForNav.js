@@ -30,7 +30,7 @@ export default function AppForNav() {
 
   return (
     <AppBar position="fixed">
-      <Container maxWidth="lm">
+      <Container maxWidth="lg">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             <NavLink exact to="/" className={s.link}>

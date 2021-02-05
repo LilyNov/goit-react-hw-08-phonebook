@@ -1,0 +1,7 @@
+.weather {
+  columns: #582323;
+  padding: 20px;
+  line-height: 2rem;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.6);
+}

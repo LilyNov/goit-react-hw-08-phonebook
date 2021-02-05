@@ -35,7 +35,7 @@ export default function Loader() {
   const rootRef = React.useRef(null);
 
   return (
-    <Container maxWidth="lm">
+    <Container maxWidth="lg">
       <Modal
         disablePortal
         disableEnforceFocus

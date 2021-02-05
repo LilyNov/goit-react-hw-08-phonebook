@@ -9,6 +9,7 @@ import AppForNav from './components/AppForNav/AppForNav';
 import PrivateRaute from './components/PrivateRaute/PrivateRaute';
 import PublicRoute from './components/PublicRoute/PublicRoute';
 import Loader from './components/Loader/Loader';
+import UserContacts from './components/UserContacts/UserContacts';
 
 const MyBlog = lazy(() =>
   import('./components/MyBlog/MyBlog' /*webpackChunkName: MyBlog */),
@@ -20,11 +21,7 @@ const SignUp = lazy(() =>
 const SignIn = lazy(() =>
   import('./components/SignIn/SignIn' /*webpackChunkName: SignIn */),
 );
-const UserContacts = lazy(() =>
-  import(
-    './components/UserContacts/UserContacts' /*webpackChunkName: UserContacts */
-  ),
-);
+
 const NotFoundView = lazy(() =>
   import(
     './components/NotFoundView/NotFoundView' /*webpackChunkName: NotFoundView */

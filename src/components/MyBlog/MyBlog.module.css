@@ -1,0 +1,17 @@
+.container {
+  width: 50vw;
+  border: 2px solid red;
+  /* margin: 7vw auto; */
+  margin-top: 7vw;
+  margin-bottom: 10vw;
+  padding: 20px;
+  text-align: center;
+  background-color: rgba(206, 200, 193, 0.6);
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+  padding: 0;
+}
