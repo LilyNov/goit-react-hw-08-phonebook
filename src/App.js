@@ -10,33 +10,33 @@ import PrivateRaute from './components/PrivateRaute/PrivateRaute';
 import PublicRoute from './components/PublicRoute/PublicRoute';
 import Loader from './components/Loader/Loader';
 
-import SignIn from './components/SignIn/SignIn';
-import SignUp from './components/SignUp/SignUp';
+// import SignIn from './components/SignIn/SignIn';
+// import SignUp from './components/SignUp/SignUp';
 
-import UserContacts from './components/UserContacts/UserContacts';
-import NotFoundView from './components/NotFoundView/NotFoundView';
+// import UserContacts from './components/UserContacts/UserContacts';
+// import NotFoundView from './components/NotFoundView/NotFoundView';
 // import MyBlog from './components/MyBlog/MyBlog';
 
 const MyBlog = lazy(() =>
   import('./components/MyBlog/MyBlog' /*webpackChunkName: MyBlog */),
 );
 
-// const SignUp = lazy(() =>
-//   import('./components/SignUp/SignUp' /*webpackChunkName: SignUp */),
-// );
-// const SignIn = lazy(() =>
-//   import('./components/SignIn/SignIn' /*webpackChunkName: SignIn */),
-// );
-// const UserContacts = lazy(() =>
-//   import(
-//     './components/UserContacts/UserContacts' /*webpackChunkName: UserContacts */
-//   ),
-// );
-// const NotFoundView = lazy(() =>
-//   import(
-//     './components/NotFoundView/NotFoundView' /*webpackChunkName: NotFoundView */
-//   ),
-// );
+const SignUp = lazy(() =>
+  import('./components/SignUp/SignUp' /*webpackChunkName: SignUp */),
+);
+const SignIn = lazy(() =>
+  import('./components/SignIn/SignIn' /*webpackChunkName: SignIn */),
+);
+const UserContacts = lazy(() =>
+  import(
+    './components/UserContacts/UserContacts' /*webpackChunkName: UserContacts */
+  ),
+);
+const NotFoundView = lazy(() =>
+  import(
+    './components/NotFoundView/NotFoundView' /*webpackChunkName: NotFoundView */
+  ),
+);
 
 export default function App() {
   const dispatch = useDispatch();
@@ -51,7 +51,7 @@ export default function App() {
   ) : (
     <Container>
       <AppForNav />
-      <Suspense fallback={<h1>...Loading</h1>}>
+      <Suspense fallback={<></>}>
         <Switch>
           <PublicRoute exact path="/">
             <MyBlog />
