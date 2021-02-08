@@ -1,56 +1,34 @@
-import { useState, useEffect } from 'react';
-import Loader from '../../Loader/Loader';
 import 'react-toastify/dist/ReactToastify.css';
-import { fetchCitySearchWeather } from '../../service/home-api';
+import { useSelector } from 'react-redux';
 import s from '../WeatherPage//WeatherPage.module.css';
 import CitySearchWeather from '../CitySearchWeather/CitySearchWeather';
-import StatusError from '../../StatusError/StatusError';
+import {
+  getWeatherLocation,
+  getWeatherCurrent,
+} from '../../../redux/weather/weather-selectors';
 
 export default function WeatherPage() {
-  const [query, setQuery] = useState('');
-  const [weather, setWeather] = useState([]);
-  const [error, setError] = useState(null);
-  const [status, setStatus] = useState('idle');
-  console.log('city page', weather);
-
-  useEffect(() => {
-    if (!query) {
-      return;
-    }
-    setStatus('pending');
-
-    fetchCitySearchWeather(query)
-      .then(newQuery => {
-        setWeather(newQuery);
-        setStatus('resolved');
-      })
-      .catch(error => {
-        setError(error);
-        setStatus('rejected');
-      });
-  }, [query]);
+  const weatherLocation = useSelector(getWeatherLocation);
+  const weatherCurrent = useSelector(getWeatherCurrent);
 
   return (
     <div className={s.Searchbar}>
-      <CitySearchWeather getCity={setQuery} />
+      <CitySearchWeather />
 
-      {status === 'pending' && <Loader />}
-
-      {status === 'rejected' && (
-        <StatusError message={error.message} style={{ textAlign: 'center' }} />
-      )}
-
-      {status === 'resolved' && (
+      {weatherLocation && weatherCurrent ? (
         <section className={s.weather}>
-          <h1>Weather in {weather.location.name} </h1>
+          <h2 className={s.title}>Weather in {weatherLocation?.name} </h2>
           <img
-            src={weather.current.condition.icon}
-            alt={weather.current.name}
+            className={s.img}
+            src={weatherCurrent?.condition.icon}
+            alt={weatherLocation?.name}
           />
-          <p>Cloud: {weather.current.condition.text}</p>
-          <p>Temperature: {weather.current.temp_c} C</p>
-          <p>Wind: {weather.current.wind_mph} m/s</p>
+          <p className={s.textCloud}>Cloud: {weatherCurrent?.condition.text}</p>
+          <p className={s.temp}>{weatherCurrent?.temp_c}&deg;C</p>
+          <p className={s.text}>Wind: {weatherCurrent?.wind_mph} m/s</p>
         </section>
+      ) : (
+        <></>
       )}
     </div>
   );

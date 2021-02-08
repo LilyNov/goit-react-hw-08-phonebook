@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { ImSearch } from 'react-icons/im';
 import s from './CitySearchWeather.module.css';
+import { searchWeather } from '../../../redux/weather/weather-operations';
+import { useDispatch } from 'react-redux';
 
-export default function CitySearchWeather({ getCity }) {
+export default function CitySearchWeather() {
   const [city, setCity] = useState('');
-
-  console.log(city);
+  const dispatch = useDispatch();
 
   //получение значения input
   const handleNameChange = e => {
@@ -19,11 +18,13 @@ export default function CitySearchWeather({ getCity }) {
     e.preventDefault();
 
     if (city.trim() === '') {
-      toast.warn('Fill out the form');
+      alert('Fill out the form');
+
       return;
+    } else {
+      dispatch(searchWeather({ city }));
     }
 
-    getCity(city);
     setCity('');
   };
 

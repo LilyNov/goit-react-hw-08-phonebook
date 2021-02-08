@@ -9,22 +9,27 @@ import AppForNav from './components/AppForNav/AppForNav';
 import PrivateRaute from './components/PrivateRaute/PrivateRaute';
 import PublicRoute from './components/PublicRoute/PublicRoute';
 import Loader from './components/Loader/Loader';
-import UserContacts from './components/UserContacts/UserContacts';
 
 const MyBlog = lazy(() =>
-  import('./components/MyBlog/MyBlog' /*webpackChunkName: MyBlog */),
+  import('./components/MyBlog/MyBlog' /*webpackChunkName: "my-blog" */),
 );
 
 const SignUp = lazy(() =>
-  import('./components/SignUp/SignUp' /*webpackChunkName: SignUp */),
+  import('./components/SignUp/SignUp' /*webpackChunkName: "sign-up" */),
 );
 const SignIn = lazy(() =>
-  import('./components/SignIn/SignIn' /*webpackChunkName: SignIn */),
+  import('./components/SignIn/SignIn' /*webpackChunkName: "sign-Ii" */),
 );
 
 const NotFoundView = lazy(() =>
   import(
-    './components/NotFoundView/NotFoundView' /*webpackChunkName: NotFoundView */
+    './components/NotFoundView/NotFoundView' /*webpackChunkName: "not-found-view" */
+  ),
+);
+
+const UserContacts = lazy(() =>
+  import(
+    './components/UserContacts/UserContacts' /*webpackChunkName: "user-contacts" */
   ),
 );
 

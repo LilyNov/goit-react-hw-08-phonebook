@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import contactsReducer from '../redux/contacts/contacts-reducer';
 import { authReducer } from './auth';
+import { weatherReducer } from './weather';
 import {
   persistStore,
   persistReducer,
@@ -20,10 +21,16 @@ const authPersistConfig = {
   whitelist: ['token'],
 };
 
+const weatherPersistConfig = {
+  key: 'weather',
+  storage,
+};
+
 const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
     contacts: contactsReducer,
+    weather: persistReducer(weatherPersistConfig, weatherReducer),
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

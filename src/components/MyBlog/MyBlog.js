@@ -9,11 +9,10 @@ export default function MyBlog() {
   return (
     <React.Fragment>
       <CssBaseline />
+
       <Container maxWidth="lg" className={s.container}>
-        <h2 style={{ textAlign: 'center', color: '#582233', marginBottom: 10 }}>
-          You can see the weather in any city
-        </h2>
-        <p style={{ marginBottom: 20 }}>
+        <h2 className={s.title}>You can see the weather in any city</h2>
+        <p className={s.text} style={{ marginBottom: 20 }}>
           {' '}
           or SignUp/LogIn to access the Phonebook
         </p>

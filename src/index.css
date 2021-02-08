@@ -13,6 +13,7 @@ body {
   /* overflow: hidden; */
   background-repeat: no-repeat;
   background-position: top center;
+  background-attachment: fixed;
 }
 
 code {

@@ -1,16 +1,36 @@
 .container {
-  width: 50vw;
+  max-width: 350px;
   border-radius: 8px;
-  margin-top: 7vw;
-  margin-bottom: 10vw;
+  margin: 100px auto;
   padding: 20px;
   text-align: center;
   background-color: rgba(206, 200, 193, 0.6);
 }
 
 h1,
-h2,
-p {
+h2 {
   margin: 0;
   padding: 0;
+}
+
+.title {
+  margin-bottom: 10px;
+  font-size: 28px;
+  line-height: 1.2;
+  text-align: center;
+  color: #582233;
+}
+
+@media screen and (max-width: 600px) {
+  .title {
+    font-size: 20px;
+    line-height: 1.15;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 800px) {
+  .title {
+    font-size: 24px;
+    line-height: 1.15;
+  }
 }
